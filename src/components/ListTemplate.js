@@ -1,17 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 
 const Template = styled.div`
-    width: 31em;
+    width: 10em;
     height: 43em;
     background-color: #ffffff;
     border-radius: 15px;
     padding: 1.5em;
-    display: flex;
-    flex-direction: column;
+    margin-right: 1em;
 `;
 
-function TodoTemplate({ children }) {
+function ListTemplate({ children }) {
     return (
         <Template>
             { children }
@@ -19,4 +18,4 @@ function TodoTemplate({ children }) {
     );
 }
 
-export default TodoTemplate;
+export default ListTemplate;

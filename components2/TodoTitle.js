@@ -7,8 +7,8 @@ const Container = styled.h1`
     color: #fd8c14;
 `;
 
-function TodoTitle({date}) {
-    console.log(date)
+function TodoTitle({ date }) {
+
     return(
         <Container>{ date }</Container>
     );

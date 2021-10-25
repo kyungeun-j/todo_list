@@ -1,65 +1,95 @@
-import React from 'react'
-import styled from 'styled-components';
+import React, { memo, useState } from "react";
+import styled, { css } from "styled-components";
+import { MdFiberManualRecord, MdOutlineClear } from 'react-icons/md';
+import { useTodoDispatch } from "./TodoContext";
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTimes } from "@fortawesome/free-solid-svg-icons";
-import { faDotCircle, faCircle } from "@fortawesome/free-regular-svg-icons";
-
-const Container = styled.div`
+const Check = styled.div`
+    width: 32px;
+    height: 32px;
+    border-radius: 16px;
+    border: 1px solid #a7a7a7;
+    font-size: 24px;
     display: flex;
     align-items: center;
-    height: 2.5em;
-
-    &:hover .removeBtn {
-        opacity: 1;
-    }
+    justify-content: center;
+    margin-right: 20px;
+    cursor: pointer;
+    ${props =>
+        props.done &&
+        css`
+            border: 1px solid #fd8c14;
+            color: #fd8c14;
+        `}
 `;
-
-const DoneButton = styled.button`
-    padding: 0;
-    width: 4em;
+const Text = styled.input`
+    font-size: 1.25rem;
+    outline: none;
     border: none;
-    background-color: transparent;
-    color: #a7a7a7;
-
-    .toggleBtn {
-        transform: scale(2);
+    color: black;
+    width: -webkit-fill-available;
+`;
+const Remove = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #dee2e6;
+    font-size: 24px;
+    cursor: pointer;
+    &:hover {
+        color: #fd8c14;
     }
+    display: none;
 `;
 
-const Topic = styled.div`
+const Form = styled.form`
     flex: 1;
 `;
 
-const DeleteButton = styled.button`
-    border: none;
-    background-color: transparent;
-    width: 4em;
-
-    .removeBtn {
-        opacity: 0;
-        color: gray
+const Item = styled.div`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: .5em 0;
+    
+    &:hover {
+        ${Remove} {
+            display: initial;
+        }
     }
 `;
 
-function TodoItem({ todo, onRemove, onToggle }) {
-    
-    const { id, text, checked } = todo;
+function TodoItem({ id, text, done }) {
+    const dispatch = useTodoDispatch();
+    const onToggle = () => dispatch({ type: 'TOGGLE', id })
+    const onRemove = () => dispatch({ type: 'REMOVE', id })
+  
+    const [value, setValue] = useState('');
+    const onChange = (e) => setValue(e.target.value);
+    const onSubmit = (e) => {
+        e.preventDefault();
+        dispatch({
+            type: 'UPDATE',
+            id,
+            text: value
+        });
+        setValue('');
+    }
+
     return (
-        <Container>
-            <DoneButton onClick={() => onToggle(id)} style={{color : checked ? "#fd8c14" : "#a7a7a7"}}>
-                { checked ? <FontAwesomeIcon icon={ faDotCircle } className="toggleBtn" /> : <FontAwesomeIcon icon={ faCircle } className="toggleBtn" /> }
-            </DoneButton>
-            <Topic style={{
-                color: checked ? "gray" : "black"
-            }}>
-                { text }
-            </Topic>
-            <DeleteButton onClick={() => onRemove(id)}>
-                <FontAwesomeIcon icon={ faTimes } className="removeBtn" />
-            </DeleteButton>
-        </Container>
+        <Item>
+            <Check done={ done } onClick={ onToggle }>{ done && <MdFiberManualRecord /> }</Check>
+            <Form onSubmit={ onSubmit }>
+                <Text
+                    placeholder={ text }
+                    onChange={ onChange }
+                    value={ value }
+                />
+            </Form>
+            <Remove onClick={ onRemove }>
+                <MdOutlineClear />
+            </Remove>
+        </Item>
     );
 }
 
-export default TodoItem;
+export default memo(TodoItem);

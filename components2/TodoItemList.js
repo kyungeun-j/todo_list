@@ -8,7 +8,7 @@ const Container = styled.div`
     margin-top: 2em;
 `;
 
-function TodoItemList({ todos, onRemove, onToggle }) {
+function TodoItemList({ todos, onRemove, onToggle, onUpdate, onModify }) {
     return (
         <Container>
             { todos.map((todo) => (
@@ -17,6 +17,8 @@ function TodoItemList({ todos, onRemove, onToggle }) {
                     key={ todo.id }
                     onRemove={ onRemove }
                     onToggle={ onToggle }
+                    onUpdate={ onUpdate }
+                    onModify={ onModify }
                 />
             )) }
         </Container>

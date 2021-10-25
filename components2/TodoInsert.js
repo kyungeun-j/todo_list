@@ -67,7 +67,7 @@ function TodoInsert(props) {
                     name="text"
                     placeholder="새로운 일정"
                     value={ content }
-                    onChange={ handleChange}
+                    onChange={ handleChange }
                     autoFocus
                 />
                 <AddButton 

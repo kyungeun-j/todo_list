@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { useTodoState } from "./TodoContext";
+import { useListState } from "./Context";
 import TodoItem from "./TodoItem";
 
 const List = styled.div`
@@ -8,18 +8,22 @@ const List = styled.div`
 `;
 
 function TodoList() {
-    const todos = useTodoState();
-    console.log(todos)
+    const lists = useListState();
+    
     return(
         <List>
             {
-                todos.map(todo => (
-                    <TodoItem
-                        key={ todo.id }
-                        id={ todo.id }
-                        text={ todo.text }
-                        done={ todo.done }
-                    />
+                lists.map(list => (
+                    list.select ? 
+                    list.todos.map(ls => (
+                        <TodoItem
+                            key={ ls.id }
+                            id={ ls.id }
+                            text={ ls.text }
+                            done={ ls.done }
+                        />
+                    )) :
+                    console.log("list 없음")
                 ))
             }
         </List>

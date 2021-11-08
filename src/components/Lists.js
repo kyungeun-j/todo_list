@@ -1,12 +1,13 @@
 import React from "react";
 import ListItem from "./ListItem"
 import styled from "styled-components";
-import { useTodoState } from "./TodoContext";
+import { useListState } from "./Context";
 
 const List = styled.div``;
 
 function Lists() {
-    const lists = useTodoState();
+    const lists = useListState();
+    console.log(lists)
     return(
         <List>
             {
@@ -14,8 +15,7 @@ function Lists() {
                     <ListItem
                         key={ list.id }
                         id={ list.id }
-                        title = { list.title}
-                        todos = { list.todos }
+                        title = { list.title }
                     />
                 ))
             }

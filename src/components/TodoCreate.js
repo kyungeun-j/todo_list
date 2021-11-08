@@ -1,6 +1,6 @@
 import React, { useState, memo } from "react";
 import styled from "styled-components";
-import { useTodoDispatch, useTodoNextId } from "./TodoContext";
+import { useListState, useDispatch, useNextTodoId } from "./Context";
 
 const Form = styled.form`
     display: flex;
@@ -16,19 +16,23 @@ const Input = styled.input`
 
 function TodoCreate() {
 
+    const lists = useListState();
+    const list = lists.filter(list => list.select)
     const [value, setValue] = useState('');
-    const dispatch = useTodoDispatch();
-    const nextId = useTodoNextId();
-
+    const dispatch = useDispatch();
+    const nextId = useNextTodoId();
     const onChange = (e) => setValue(e.target.value);
     const onSubmit = (e) => {
         e.preventDefault();
         dispatch({
-            type: 'CREATE',
-            todo: {
-                id: nextId.current,
-                text: value,
-                done: false
+            type: 'TODO_CREATE',
+            list: {
+                id: Number(list.map(li => li.id).toString()),
+                todo: {
+                    id: nextId.current,
+                    text: value,
+                    done: false
+                }
             }
         });
         setValue('');

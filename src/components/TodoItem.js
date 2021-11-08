@@ -1,7 +1,7 @@
 import React, { memo, useState } from "react";
 import styled, { css } from "styled-components";
 import { MdFiberManualRecord, MdOutlineClear } from 'react-icons/md';
-import { useTodoDispatch } from "./TodoContext";
+import { useDispatch } from "./Context";
 
 const Check = styled.div`
     width: 32px;
@@ -59,7 +59,7 @@ const Item = styled.div`
 `;
 
 function TodoItem({ id, text, done }) {
-    const dispatch = useTodoDispatch();
+    const dispatch = useDispatch();
     const onToggle = () => dispatch({ type: 'TOGGLE', id })
     const onRemove = () => dispatch({ type: 'REMOVE', id })
   

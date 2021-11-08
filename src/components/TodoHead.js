@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { useTodoState } from "./TodoContext";
+import { useListState } from "./Context";
 
 const Head = styled.h1`
     display: flex;
@@ -12,9 +12,14 @@ const Title = styled.div``;
 const Count = styled.div``;
 
 function TodoHead() {
-    const todos = useTodoState();
-    
-    const unDone = todos.filter(todo => !todo.done);
+    const lists = useListState();    
+    const list = lists.filter(list => list.select)
+
+    const allUnDone = list.length !== 0 ?
+        lists.map(list =>
+        list.todos.map(todo => !todo.done).length)
+        .reduce((a, c) => a+c) :
+        0;
 
     const today = new Date();
     const dateString = today.toLocaleDateString('ko-KR', {
@@ -24,9 +29,14 @@ function TodoHead() {
     });
 
     return(
-        <Head>
-            <Title>{ dateString }</Title>
-            <Count>{ unDone.length }</Count>
+        <Head> 
+            
+            <Title>
+                { list.length !== 0 ? list.map(ls => (ls.title)) : dateString }
+            </Title>
+            <Count>
+                { list.length !== 0 ? list.map(ls => ls.todos.map(todo => !todo.done).length) : allUnDone }
+            </Count>
         </Head>
     );
 }

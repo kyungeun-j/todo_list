@@ -1,15 +1,15 @@
 import './App.css';
 
-import styled, { createGlobalStyle } from 'styled-components';
-import TodoTemplate from './components/TodoTemplate';
-import TodoHead from './components/TodoHead';
-import TodoList from './components/TodoList';
-import TodoCreate from './components/TodoCreate';
-
-import { TodoProvider } from './components/TodoContext';
+import { Provider } from './components/Context';
 import ListTemplate from './components/ListTemplate';
 import ListHead from './components/ListHead';
 import Lists from "./components/Lists"
+import TodoTemplate from './components/TodoTemplate';
+
+import styled, { createGlobalStyle } from 'styled-components';
+import TodoList from './components/TodoList';
+import TodoHead from './components/TodoHead';
+import TodoCreate from './components/TodoCreate';
 
 const GrobalStyle = createGlobalStyle`
   body {
@@ -30,7 +30,7 @@ const Container = styled.div`
 function App() {
   return (
     // TodoProvider: 모든 곳에서 Todo Context를 사용할 수 있기위함
-    <TodoProvider>
+    <Provider>
       <GrobalStyle />
       <Container>
         <ListTemplate>
@@ -43,7 +43,7 @@ function App() {
           <TodoList />
         </TodoTemplate>
       </Container>
-    </TodoProvider>
+    </Provider>
   );
 }
 

@@ -58,17 +58,18 @@ const Item = styled.div`
     }
 `;
 
-function TodoItem({ id, text, done }) {
+function TodoItem({ listId, id, text, done }) {
     const dispatch = useDispatch();
-    const onToggle = () => dispatch({ type: 'TOGGLE', id })
-    const onRemove = () => dispatch({ type: 'REMOVE', id })
-  
+    const onToggle = () => dispatch({ type: 'TODO_TOGGLE', listId, id, done })
+    const onRemove = () => dispatch({ type: 'TODO_REMOVE', listId, id })
+
     const [value, setValue] = useState('');
     const onChange = (e) => setValue(e.target.value);
     const onSubmit = (e) => {
         e.preventDefault();
         dispatch({
-            type: 'UPDATE',
+            type: 'TODO_UPDATE',
+            listId,
             id,
             text: value
         });

@@ -36,17 +36,16 @@ function ListHead() {
     const onChange = (e) => setValue(e.target.value);
     const onSubmit = (e) => {
         e.preventDefault();
-        dispatch(
-            {
-                type: 'LIST_CREATE',
-                list: {
-                    id: id,
-                    title: value,
-                    select: false,
-                    todos: []         
-                }
+        dispatch({
+            type: 'LIST_CREATE',
+            list: {
+                id: id,
+                title: value,
+                select: false,
+                todos: []         
             }
-        );
+        });
+        dispatch({type: 'LIST_SELECT', id});
         setValue('');
         setAdd(false)
         nextId.current += 1;

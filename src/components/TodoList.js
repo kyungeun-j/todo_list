@@ -18,6 +18,7 @@ function TodoList() {
                     list.todos.map(ls => (
                         <TodoItem
                             key={ ls.id }
+                            listId={ list.id }
                             id={ ls.id }
                             text={ ls.text }
                             done={ ls.done }

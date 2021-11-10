@@ -1,29 +1,42 @@
 import React, { createContext, useContext, useReducer, useRef } from "react";
-import { act } from 'react-dom/test-utils';
 
 const lists = [];
 
 function Reducer(state, action) {
-    console.log(state)
     switch (action.type) {
         case 'LIST_CREATE':
-            return state.concat(action.list) ;
+            return state.concat(action.list)
 
         case 'LIST_REMOVE':
             return state.filter(list => list.id !== action.id);
 
         case 'UPDATE':
             return state.map(list => list.id !== action.id ?
-                { ...list, title: action.title} : list);
+                { ...list, title: action.title } : list);
         
         case 'LIST_SELECT':
             return state.map(list => list.id === action.id ?
-                { ...list, select: !list.select} : { ...list, select: false});
+                { ...list, select: !list.select } : { ...list, select: false });
             
         case 'TODO_CREATE':
-            return state.map(list => list.id !== action.id ?
-                { ...list, todos: list.todos.concat(action.list.todo)} : list);
-            
+            return state.map(list => list.id === action.id ?
+                { ...list, todos: list.todos.concat(action.list.todo) } : list);
+
+        case 'TODO_TOGGLE':
+            return state.map(list => list.id === action.listId ?
+                { ...list, todos: list.todos.map(todo => todo.id === action.id ? 
+                    { ...todo, done: !action.done } : { ...todo }) } : { ...list });
+
+        case 'TODO_REMOVE':
+            return state.map(list => list.id === action.listId ?
+                { ...list, todos: list.todos.filter(todo => todo.id !== action.id) } : { ...list });
+        
+        case 'TODO_UPDATE':
+            return state.map(list => list.id === action.listId ?
+                { ...list, todos: list.todos.map(todo => todo.id === action.id ? 
+                    { ...todo, text: action.text } : { ...todo }) } : { ...list });
+    
+
         default:
             throw new Error('Unhandled action type: ${action.type}');
     }

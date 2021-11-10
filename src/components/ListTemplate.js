@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 const Template = styled.div`
     width: 10em;
-    height: 43em;
+    height: 36em;
     background-color: #ffffff;
     border-radius: 15px;
     padding: 1.5em;

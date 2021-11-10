@@ -26,8 +26,8 @@ function TodoCreate() {
         e.preventDefault();
         dispatch({
             type: 'TODO_CREATE',
+            id: Number(list.map(li => li.id).toString()),
             list: {
-                id: Number(list.map(li => li.id).toString()),
                 todo: {
                     id: nextId.current,
                     text: value,

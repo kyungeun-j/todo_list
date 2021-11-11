@@ -7,7 +7,7 @@ const List = styled.div``;
 
 function Lists() {
     const lists = useListState();
-    console.log(lists)
+    
     return(
         <List>
             {
@@ -15,7 +15,7 @@ function Lists() {
                     <ListItem
                         key={ list.id }
                         id={ list.id }
-                        title = { list.title }
+                        title={ list.title }
                     />
                 ))
             }

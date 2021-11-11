@@ -14,6 +14,16 @@ function TodoList() {
         <List>
             {
                 lists.map(list => (
+                    lists.filter(list => list.select).length === 0 ?
+                    list.todos.map(ls => (
+                        <TodoItem
+                            key={ ls.id }
+                            listId={ list.id }
+                            id={ ls.id }
+                            text={ ls.text }
+                            done={ ls.done }
+                        />
+                    )) :
                     list.select ? 
                     list.todos.map(ls => (
                         <TodoItem
@@ -24,7 +34,7 @@ function TodoList() {
                             done={ ls.done }
                         />
                     )) :
-                    console.log("list 없음")
+                    console.log('list 없음')
                 ))
             }
         </List>

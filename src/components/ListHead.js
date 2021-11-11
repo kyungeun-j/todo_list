@@ -1,7 +1,7 @@
 import React, { useState, memo } from "react";
 import styled, { css } from "styled-components";
 import { MdAddCircle } from 'react-icons/md';
-import { useDispatch, useNextId } from "./Context";
+import { useDispatch, useNextId, useListState } from "./Context";
 
 const Head = styled.div`
 `;
@@ -22,6 +22,10 @@ const Input = styled.input``;
 
 const Add = styled.div`
     font-size: 24px;
+`;
+
+const All = styled.div`
+    padding: 1em 0;
 `;
 
 function ListHead() {
@@ -50,12 +54,15 @@ function ListHead() {
         setAdd(false)
         nextId.current += 1;
     }
+
+    const onSelect = () => dispatch({ type: 'LIST_SELECT', id: 'all' })
     
     return (
         <Head>
             <Add onClick={ onAdd } add={ add }>
-                <MdAddCircle />
-            </Add>            
+                <MdAddCircle className="addImg" />
+            </Add>
+            <All onClick={ onSelect }>All Todos</All>
             {(
                 add && 
                 <Form onSubmit={ onSubmit }>

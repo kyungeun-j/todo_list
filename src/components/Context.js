@@ -3,6 +3,7 @@ import React, { createContext, useContext, useReducer, useRef } from "react";
 const lists = [];
 
 function Reducer(state, action) {
+    console.log(state, action)
     switch (action.type) {
         case 'LIST_CREATE':
             return state.concat(action.list)
@@ -16,7 +17,7 @@ function Reducer(state, action) {
         
         case 'LIST_SELECT':
             return state.map(list => list.id === action.id ?
-                { ...list, select: !list.select } : { ...list, select: false });
+                    { ...list, select: true } : { ...list, select: false });
             
         case 'TODO_CREATE':
             return state.map(list => list.id === action.id ?

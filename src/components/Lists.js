@@ -16,6 +16,9 @@ function Lists() {
                         key={ list.id }
                         id={ list.id }
                         title={ list.title }
+                        select={ list.select }
+                        color={ list.color }
+                        count={ list.todos.filter(todo => !todo.done).length }
                     />
                 ))
             }

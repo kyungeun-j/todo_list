@@ -17,9 +17,10 @@ const Check = styled.div`
     ${props =>
         props.done &&
         css`
-            border: 1px solid #fd8c14;
-            color: #fd8c14;
-        `}
+            border: 1px solid ${props => props.color};
+            color: ${props => props.color};
+        `
+    }
 `;
 const Text = styled.input`
     font-size: 1.25rem;
@@ -40,11 +41,9 @@ const Remove = styled.div`
     }
     display: none;
 `;
-
 const Form = styled.form`
     flex: 1;
 `;
-
 const Item = styled.div`
     display: flex;
     justify-content: space-between;
@@ -57,8 +56,10 @@ const Item = styled.div`
         }
     }
 `;
+const Category = styled.div``;
 
-function TodoItem({ listId, id, text, done }) {
+function TodoItem({ listId, title, color, id, text, done }) {
+    console.log(color)
     const dispatch = useDispatch();
     const onToggle = () => dispatch({ type: 'TODO_TOGGLE', listId, id, done })
     const onRemove = () => dispatch({ type: 'TODO_REMOVE', listId, id })
@@ -77,8 +78,14 @@ function TodoItem({ listId, id, text, done }) {
     }
 
     return (
+        <>
+        <Category>
+            {title}
+        </Category>
         <Item>
-            <Check done={ done } onClick={ onToggle }>{ done && <MdFiberManualRecord /> }</Check>
+            <Check color={ color } done={ done } onClick={ onToggle }>
+                { done && <MdFiberManualRecord /> }
+            </Check>
             <Form onSubmit={ onSubmit }>
                 <Text
                     placeholder={ text }
@@ -90,6 +97,7 @@ function TodoItem({ listId, id, text, done }) {
                 <MdOutlineClear />
             </Remove>
         </Item>
+        </>
     );
 }
 

@@ -3,10 +3,11 @@ import styled, { css } from "styled-components";
 import { MdAddCircle } from 'react-icons/md';
 import { useDispatch, useNextId, useListState } from "./Context";
 
-const Head = styled.div`
-`;
+const Head = styled.div``;
 
 const Form = styled.form`
+    display: flex;
+    margin-bottom: 0.5em;
     ${props =>
         props.add &&
         css`
@@ -18,7 +19,19 @@ const Form = styled.form`
         `
     }
 `;
-const Input = styled.input``;
+
+const Color = styled.input`
+    flex: 1;
+    border: none;
+    background: transparent;
+    // border: 1px solid gray;
+    // border-radius: 1em;
+`;
+const Input = styled.input`
+    outline: none;
+    border: none;
+    width: 80%;
+`;
 
 const Add = styled.div`
     font-size: 24px;
@@ -36,9 +49,12 @@ function ListHead() {
     const dispatch = useDispatch();
     const nextId = useNextId();
     const [value, setValue] = useState('');
+    const [color, setColor] = useState('black');
     const id = nextId.current;
     const onChange = (e) => setValue(e.target.value);
+    const onColor = (e) => setColor(e.target.value)
     const onSubmit = (e) => {
+        console.log(e)
         e.preventDefault();
         dispatch({
             type: 'LIST_CREATE',
@@ -46,16 +62,18 @@ function ListHead() {
                 id: id,
                 title: value,
                 select: false,
+                color: color,
                 todos: []         
             }
         });
         dispatch({type: 'LIST_SELECT', id});
         setValue('');
+        setColor('black')
         setAdd(false)
         nextId.current += 1;
     }
 
-    const onSelect = () => dispatch({ type: 'LIST_SELECT', id: 'all' })
+    const onSelect = () => dispatch({ type: 'LIST_SELECT', id: 'all'})
     
     return (
         <Head>
@@ -66,11 +84,16 @@ function ListHead() {
             {(
                 add && 
                 <Form onSubmit={ onSubmit }>
+                    <Color
+                        type='color'
+                        onChange={ onColor }
+                        value= { color }
+                    />
                     <Input
                         autoFocus
                         placeholder="제목"
-                        onChange={onChange}
-                        value={value}
+                        onChange={ onChange }
+                        value={ value }
                     />
                 </Form>
             )}

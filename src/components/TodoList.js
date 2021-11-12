@@ -9,16 +9,20 @@ const List = styled.div`
 
 function TodoList() {
     const lists = useListState();
+    const all = lists.filter(list => list.select).length === 0
+    console.log(lists)
     
     return(
         <List>
             {
                 lists.map(list => (
-                    lists.filter(list => list.select).length === 0 ?
+                    all ?
                     list.todos.map(ls => (
                         <TodoItem
                             key={ ls.id }
                             listId={ list.id }
+                            title={ list.title }
+                            color={ list.color }
                             id={ ls.id }
                             text={ ls.text }
                             done={ ls.done }
@@ -32,6 +36,7 @@ function TodoList() {
                             id={ ls.id }
                             text={ ls.text }
                             done={ ls.done }
+                            color={ list.color }
                         />
                     )) :
                     console.log('list 없음')

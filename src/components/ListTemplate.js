@@ -6,7 +6,7 @@ const Template = styled.div`
     height: 36em;
     background-color: #ffffff;
     border-radius: 15px;
-    padding: 1.5em;
+    padding: 1.5em 1em;
     margin-right: 1em;
 `;
 

@@ -19,6 +19,7 @@ const Remove = styled.div`
     display: none;
     &:hover {
         color: #fd8c14;
+    }
 `;
 
 const Item = styled.div`

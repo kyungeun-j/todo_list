@@ -20,17 +20,51 @@ const Form = styled.form`
     }
 `;
 
-const Color = styled.input`
+const Color = styled.div`
     flex: 1;
     border: none;
     background: transparent;
-    // border: 1px solid gray;
-    // border-radius: 1em;
+    width: 1.5em;
+    height: 1.5em;
+    border-radius: 1em;
+`;
+
+const ColorSelect = styled.div`
+    position: relative;
+    background: #e5e6e6;
+    width: 10em;
+    height: 4em;
+    border-radius: 0.4em;
+    display: flex;    
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5em;
+    box-sizing: border-box;
+
+    &::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 7%;
+        width: 0;
+        height: 0;
+        border: 0.6em solid transparent;
+        border-bottom-color: #e5e6e6;
+        border-top: 0;
+        margin-left: -0.5em;
+        margin-top: -0.4em;
+    }
+`;
+
+const ColorList = styled.div`
+    width: 1.5em;
+    height: 1.5em;
+    border-radius: 1em;
 `;
 const Input = styled.input`
     outline: none;
     border: none;
-    width: 80%;
+    width: 82%;
 `;
 
 const Add = styled.div`
@@ -49,10 +83,10 @@ function ListHead() {
     const dispatch = useDispatch();
     const nextId = useNextId();
     const [value, setValue] = useState('');
-    const [color, setColor] = useState('black');
+    const [color, setColor] = useState('#FFF587');
     const id = nextId.current;
     const onChange = (e) => setValue(e.target.value);
-    const onColor = (e) => setColor(e.target.value)
+    const onColor = (e) => setColor(e.target.style.backgroundColor);
     const onSubmit = (e) => {
         console.log(e)
         e.preventDefault();
@@ -68,7 +102,7 @@ function ListHead() {
         });
         dispatch({type: 'LIST_SELECT', id});
         setValue('');
-        setColor('black')
+        setColor('#FFF587')
         setAdd(false)
         nextId.current += 1;
     }
@@ -85,8 +119,7 @@ function ListHead() {
                 add && 
                 <Form onSubmit={ onSubmit }>
                     <Color
-                        type='color'
-                        onChange={ onColor }
+                        style={{ backgroundColor: color }}
                         value= { color }
                     />
                     <Input
@@ -97,6 +130,13 @@ function ListHead() {
                     />
                 </Form>
             )}
+            <ColorSelect onClick={ onColor }>
+                <ColorList style={{ backgroundColor:"#FFF587" }}/>
+                <ColorList style={{ backgroundColor:"#FF8C64" }}/>
+                <ColorList style={{ backgroundColor:"#FF665A" }}/>
+                <ColorList style={{ backgroundColor:"#7D6B7D" }}/>
+                <ColorList style={{ backgroundColor:"#A3A1A8" }}/>
+            </ColorSelect>
         </Head>
     );
 }

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import styled from "styled-components";
 import { useListState } from "./Context";
 import TodoItem from "./TodoItem";
@@ -7,11 +7,12 @@ const List = styled.div`
     flex: 1
 `;
 
+const Title = styled.div``;
+
 function TodoList() {
     const lists = useListState();
     const all = lists.filter(list => list.select).length === 0
-    console.log(lists)
-    
+    const title =  lists.map(list => list.title);
     return(
         <List>
             {
@@ -21,13 +22,12 @@ function TodoList() {
                         <TodoItem
                             key={ ls.id }
                             listId={ list.id }
-                            title={ list.title }
                             color={ list.color }
                             id={ ls.id }
                             text={ ls.text }
                             done={ ls.done }
                         />
-                    )) :
+                    )):
                     list.select ? 
                     list.todos.map(ls => (
                         <TodoItem
@@ -39,7 +39,7 @@ function TodoList() {
                             color={ list.color }
                         />
                     )) :
-                    console.log('list 없음')
+                    <Fragment />
                 ))
             }
         </List>

@@ -3,7 +3,6 @@ import React, { createContext, useContext, useReducer, useRef } from "react";
 const lists = [];
 
 function Reducer(state, action) {
-    console.log(state, action)
     switch (action.type) {
         case 'LIST_CREATE':
             return state.concat(action.list)
@@ -36,7 +35,6 @@ function Reducer(state, action) {
             return state.map(list => list.id === action.listId ?
                 { ...list, todos: list.todos.map(todo => todo.id === action.id ? 
                     { ...todo, text: action.text } : { ...todo }) } : { ...list });
-    
 
         default:
             throw new Error('Unhandled action type: ${action.type}');

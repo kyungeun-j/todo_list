@@ -1,4 +1,4 @@
-import React, { useState, memo } from "react";
+import React, { useState, memo, Fragment } from "react";
 import styled from "styled-components";
 import { useListState, useDispatch, useNextTodoId } from "./Context";
 
@@ -15,9 +15,9 @@ const Input = styled.input`
 `;
 
 function TodoCreate() {
-
     const lists = useListState();
     const list = lists.filter(list => list.select)
+    
     const [value, setValue] = useState('');
     const dispatch = useDispatch();
     const nextId = useNextTodoId();
@@ -40,6 +40,7 @@ function TodoCreate() {
     }
 
     return (
+        list.length !== 0 ?
         <Form onSubmit={ onSubmit }>
             <Input 
                 autoFocus
@@ -47,7 +48,8 @@ function TodoCreate() {
                 onChange={ onChange }
                 value={ value }
             />
-        </Form>
+        </Form> :
+        <Fragment />
     );
 }
 

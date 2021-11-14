@@ -58,8 +58,7 @@ const Item = styled.div`
 `;
 const Category = styled.div``;
 
-function TodoItem({ listId, title, color, id, text, done }) {
-    console.log(color)
+function TodoItem({ listId, color, id, text, done }) {
     const dispatch = useDispatch();
     const onToggle = () => dispatch({ type: 'TODO_TOGGLE', listId, id, done })
     const onRemove = () => dispatch({ type: 'TODO_REMOVE', listId, id })
@@ -79,9 +78,6 @@ function TodoItem({ listId, title, color, id, text, done }) {
 
     return (
         <>
-        <Category>
-            {title}
-        </Category>
         <Item>
             <Check color={ color } done={ done } onClick={ onToggle }>
                 { done && <MdFiberManualRecord /> }

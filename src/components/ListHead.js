@@ -30,16 +30,19 @@ const Color = styled.div`
 `;
 
 const ColorSelect = styled.div`
-    position: relative;
+    // position: relative;
+    position: absolute;
+    top: 170px;
     background: #e5e6e6;
     width: 10em;
     height: 4em;
     border-radius: 0.4em;
-    display: flex;    
+    display: none;    
     justify-content: space-between;
     align-items: center;
     padding: 0.5em;
     box-sizing: border-box;
+    cursor: pointer;
 
     &::after {
         content: '';
@@ -108,6 +111,17 @@ function ListHead() {
     }
 
     const onSelect = () => dispatch({ type: 'LIST_SELECT', id: 'all'})
+
+    const onColorSelect = (e) => {
+        const colorPicker = document.getElementsByClassName('color-picker')[0];
+
+        if ([...colorPicker.classList].indexOf('opend') > 0) {
+            colorPicker.style.display = 'none';
+        } else {
+            colorPicker.style.display = 'flex';
+        }
+        document.getElementsByClassName('color-picker')[0].classList.toggle('opend');
+    }
     
     return (
         <Head>
@@ -119,24 +133,26 @@ function ListHead() {
                 add && 
                 <Form onSubmit={ onSubmit }>
                     <Color
+                        onClick={ onColorSelect }
                         style={{ backgroundColor: color }}
                         value= { color }
-                    />
+                    >
+                    </Color>
                     <Input
                         autoFocus
                         placeholder="제목"
                         onChange={ onChange }
                         value={ value }
                     />
+                    <ColorSelect className="color-picker">
+                        <ColorList onClick={ onColor } style={{ backgroundColor:"#FFF587" }}/>
+                        <ColorList onClick={ onColor } style={{ backgroundColor:"#FF8C64" }}/>
+                        <ColorList onClick={ onColor } style={{ backgroundColor:"#FF665A" }}/>
+                        <ColorList onClick={ onColor } style={{ backgroundColor:"#7D6B7D" }}/>
+                        <ColorList onClick={ onColor } style={{ backgroundColor:"#A3A1A8" }}/>
+                    </ColorSelect>
                 </Form>
             )}
-            <ColorSelect onClick={ onColor }>
-                <ColorList style={{ backgroundColor:"#FFF587" }}/>
-                <ColorList style={{ backgroundColor:"#FF8C64" }}/>
-                <ColorList style={{ backgroundColor:"#FF665A" }}/>
-                <ColorList style={{ backgroundColor:"#7D6B7D" }}/>
-                <ColorList style={{ backgroundColor:"#A3A1A8" }}/>
-            </ColorSelect>
         </Head>
     );
 }

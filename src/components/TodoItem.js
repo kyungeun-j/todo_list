@@ -37,7 +37,7 @@ const Remove = styled.div`
     font-size: 24px;
     cursor: pointer;
     &:hover {
-        color: #fd8c14;
+        color: ${props => props.color};
     }
     display: none;
 `;
@@ -49,6 +49,7 @@ const Item = styled.div`
     justify-content: space-between;
     align-items: center;
     margin: .5em 0;
+    word-break:break-all;
     
     &:hover {
         ${Remove} {
@@ -56,9 +57,13 @@ const Item = styled.div`
         }
     }
 `;
-const Category = styled.div``;
+const Title = styled.div`
+    color: ${props => props.color};
+    font-weight: bold;
+`;
 
-function TodoItem({ listId, color, id, text, done }) {
+function TodoItem({ listId, title, color, id, text, done }) {
+    console.log(title)
     const dispatch = useDispatch();
     const onToggle = () => dispatch({ type: 'TODO_TOGGLE', listId, id, done })
     const onRemove = () => dispatch({ type: 'TODO_REMOVE', listId, id })
@@ -78,6 +83,9 @@ function TodoItem({ listId, color, id, text, done }) {
 
     return (
         <>
+        <Title color={ color }>
+            { title }
+        </Title>
         <Item>
             <Check color={ color } done={ done } onClick={ onToggle }>
                 { done && <MdFiberManualRecord /> }
@@ -89,7 +97,7 @@ function TodoItem({ listId, color, id, text, done }) {
                     value={ value }
                 />
             </Form>
-            <Remove onClick={ onRemove }>
+            <Remove onClick={ onRemove } color={ color }>
                 <MdOutlineClear />
             </Remove>
         </Item>

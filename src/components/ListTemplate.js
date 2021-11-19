@@ -8,9 +8,19 @@ const Template = styled.div`
     border-radius: 15px;
     padding: 1.5em 1em;
     margin-right: 1em;
+    display: flex;
+    flex-direction: column;
+
+    @media screen and (max-width: 800px) {
+        width: auto;
+        height: -webkit-fill-available;
+        padding: 0.7em;
+        margin-right: 0.5em;
+    }
 `;
 
 function ListTemplate({ children }) {
+
     return (
         <Template>
             { children }

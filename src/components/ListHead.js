@@ -2,6 +2,7 @@ import React, { useState, memo } from "react";
 import styled, { css } from "styled-components";
 import { MdAddCircle } from 'react-icons/md';
 import { useDispatch, useNextId, useListState } from "./Context";
+import Lists from "./Lists"
 
 const Head = styled.div``;
 
@@ -21,7 +22,7 @@ const Form = styled.form`
 `;
 
 const Color = styled.div`
-    flex: 1;
+    position: relative;
     border: none;
     background: transparent;
     width: 1.5em;
@@ -30,10 +31,9 @@ const Color = styled.div`
 `;
 
 const ColorSelect = styled.div`
-    // position: relative;
     position: absolute;
-    top: 170px;
-    background: #e5e6e6;
+    top: 25px;
+    background: var(--back-color);
     width: 10em;
     height: 4em;
     border-radius: 0.4em;
@@ -52,10 +52,14 @@ const ColorSelect = styled.div`
         width: 0;
         height: 0;
         border: 0.6em solid transparent;
-        border-bottom-color: #e5e6e6;
+        border-bottom-color: var(--back-color);
         border-top: 0;
         margin-left: -0.5em;
         margin-top: -0.4em;
+    }
+
+    @media screen and (max-width: 800px) {
+        top: 26px;
     }
 `;
 
@@ -65,20 +69,46 @@ const ColorList = styled.div`
     border-radius: 1em;
 `;
 const Input = styled.input`
+    flex: 1;
     outline: none;
     border: none;
     width: 82%;
 `;
 
 const Add = styled.div`
+    display: flex;
+    width: fit-content;
     font-size: 24px;
+    color: var(--base-color);
+
+    &:hover {
+        border: 2px dashed var(--base-color);
+        margin-left: -2px;
+        margin-right: -2px;
+        border-radius: 1em;
+    }
+
+    @media screen and (max-width: 800px) {
+        width: auto;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 1em;
+
+        &:hover {
+            border: none;
+        }
+    }
 `;
 
 const All = styled.div`
     padding: 1em 0;
+    
+    @media screen and (max-width: 800px) {
+        display: none;
+    }
 `;
 
-function ListHead() {
+function ListHead({ ulOpen }) {
 
     const [add, setAdd] = useState(false);
     const onAdd = () => setAdd(!add);
@@ -91,7 +121,6 @@ function ListHead() {
     const onChange = (e) => setValue(e.target.value);
     const onColor = (e) => setColor(e.target.style.backgroundColor);
     const onSubmit = (e) => {
-        console.log(e)
         e.preventDefault();
         dispatch({
             type: 'LIST_CREATE',
@@ -122,13 +151,13 @@ function ListHead() {
         }
         document.getElementsByClassName('color-picker')[0].classList.toggle('opend');
     }
-    
+
     return (
         <Head>
             <Add onClick={ onAdd } add={ add }>
                 <MdAddCircle className="addImg" />
             </Add>
-            <All onClick={ onSelect }>All Todos</All>
+            <All onClick={ onSelect } add={ add }>All Todos</All>
             {(
                 add && 
                 <Form onSubmit={ onSubmit }>
@@ -137,6 +166,13 @@ function ListHead() {
                         style={{ backgroundColor: color }}
                         value= { color }
                     >
+                        <ColorSelect className="color-picker">
+                            <ColorList onClick={ onColor } style={{ backgroundColor:"#FFF587" }}/>
+                            <ColorList onClick={ onColor } style={{ backgroundColor:"#FF8C64" }}/>
+                            <ColorList onClick={ onColor } style={{ backgroundColor:"#FF665A" }}/>
+                            <ColorList onClick={ onColor } style={{ backgroundColor:"#7D6B7D" }}/>
+                            <ColorList onClick={ onColor } style={{ backgroundColor:"#A3A1A8" }}/>
+                        </ColorSelect>
                     </Color>
                     <Input
                         autoFocus
@@ -144,13 +180,6 @@ function ListHead() {
                         onChange={ onChange }
                         value={ value }
                     />
-                    <ColorSelect className="color-picker">
-                        <ColorList onClick={ onColor } style={{ backgroundColor:"#FFF587" }}/>
-                        <ColorList onClick={ onColor } style={{ backgroundColor:"#FF8C64" }}/>
-                        <ColorList onClick={ onColor } style={{ backgroundColor:"#FF665A" }}/>
-                        <ColorList onClick={ onColor } style={{ backgroundColor:"#7D6B7D" }}/>
-                        <ColorList onClick={ onColor } style={{ backgroundColor:"#A3A1A8" }}/>
-                    </ColorSelect>
                 </Form>
             )}
         </Head>

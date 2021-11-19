@@ -9,6 +9,12 @@ const Template = styled.div`
     padding: 1.5em;
     display: flex;
     flex-direction: column;
+
+    @media screen and (max-width: 800px) {
+        height: -webkit-fill-available;
+        width: -webkit-fill-available;
+        padding: 0.7em;
+    }
 `;
 
 function TodoTemplate({ children }) {

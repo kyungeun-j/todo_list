@@ -14,31 +14,36 @@ const Done = styled.div`
 const Title = styled.div`
     flex: 1;
     padding: 0.4em;
+
+    @media screen and (max-width: 800px) {
+        display: none;
+    }
 `;
 const Remove = styled.div`
     display: none;
-    &:hover {
+    &:hover, {
         color: #fd8c14;
     }
 `;
 
-const Item = styled.div`
+const Item = styled.li`
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 0.3em 0.2em;
     cursor: pointer;
     border-radius: 6px;
-    &:hover {
+    &:hover, &:active {
         ${Remove} {
-            display: flex
+            display: flex;
         }
     }
     ${props =>
         props.select &&
         css`
-            background-color: gray;
-            color: white;
+            border: 2px dashed var(--base-color);
+            padding: 0.2em;
+            
         `
     }
 `;

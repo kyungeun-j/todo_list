@@ -12,10 +12,18 @@ import TodoHead from './components/TodoHead';
 import TodoCreate from './components/TodoCreate';
 
 const GrobalStyle = createGlobalStyle`
+  :root {
+    --base-color: #6c6c6c;
+    --back-color: #e1e1e1;
+    --font-color: #484848;
+    --point-color: #9ed591;
+  }
+
   body {
     height: 100vh;
     width: 100vw;
-    background-color: #e1e1e1;
+    background-color: var(--back-color);
+    color: var(--font-color);
   }
 `;
 
@@ -25,6 +33,11 @@ const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+
+  @media screen and (max-width: 800px) {
+    padding: 2em;
+    box-sizing: border-box;
+  }
 `;
 
 function App() {

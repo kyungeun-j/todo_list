@@ -4,15 +4,14 @@ import { useListState } from "./Context";
 import TodoItem from "./TodoItem";
 
 const List = styled.div`
-    flex: 1
+    flex: 1;
+    overflow: auto;
 `;
-
-const Title = styled.div``;
 
 function TodoList() {
     const lists = useListState();
     const all = lists.filter(list => list.select).length === 0
-    const title =  lists.map(list => list.title);
+    
     return(
         <List>
             {
@@ -22,6 +21,10 @@ function TodoList() {
                         <TodoItem
                             key={ ls.id }
                             listId={ list.id }
+                            title={ 
+                                list.todos[0].id === ls.id ?
+                                list.title : ''
+                            }
                             color={ list.color }
                             id={ ls.id }
                             text={ ls.text }

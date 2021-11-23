@@ -1,6 +1,6 @@
 import React from "react";
 import ListItem from "./ListItem"
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 import { useListState } from "./Context";
 
 const List = styled.ul`
@@ -13,9 +13,10 @@ const List = styled.ul`
 
 function Lists() {
     const lists = useListState();
-    
+    const selectCnt = lists.map(list => list.select).filter(select => select).length;
+
     return(
-        <List select={lists.map(list => list.select)}>
+        <List>
             {
                 lists.map(list => (
                     <ListItem
@@ -23,6 +24,7 @@ function Lists() {
                         id={ list.id }
                         title={ list.title }
                         select={ list.select }
+                        selectCnt={ selectCnt }
                         color={ list.color }
                         count={ list.todos.filter(todo => !todo.done).length }
                     />

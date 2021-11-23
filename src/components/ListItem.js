@@ -14,18 +14,14 @@ const Done = styled.div`
 const Title = styled.div`
     flex: 1;
     padding: 0.4em;
-
-    @media screen and (max-width: 800px) {
-        display: none;
-    }
 `;
 const Remove = styled.div`
     display: none;
-    &:hover, {
+
+    &:hover {
         color: #fd8c14;
     }
 `;
-
 const Item = styled.li`
     display: flex;
     justify-content: center;
@@ -33,13 +29,15 @@ const Item = styled.li`
     padding: 0.3em 0.2em;
     cursor: pointer;
     border-radius: 6px;
+
     &:hover, &:active {
         ${Remove} {
             display: flex;
         }
     }
-    ${props =>
-        props.select &&
+
+    ${(props) =>
+        props.select && props.selectCnt < 2 &&
         css`
             border: 2px dashed var(--base-color);
             padding: 0.2em;
@@ -48,17 +46,16 @@ const Item = styled.li`
     }
 `;
 
-function ListItem({ id, title, select, color, count }) {
-    console.log(count)
+function ListItem({ id, title, select, selectCnt, color, count }) {
     const dispatch = useDispatch();
     const onRemove = () => dispatch({ type: 'LIST_REMOVE', id })
     const onSelect = () => dispatch({ type: 'LIST_SELECT', id })
 
     return(
         <>
-            <Item select={ select }>
+            <Item onClick={ onSelect } select={ select } selectCnt={ selectCnt }>
                 <Done color={ color }>{ count }</Done>
-                <Title onClick={ onSelect }>{ title }</Title>
+                <Title>{ title }</Title>
                 <Remove onClick={ onRemove }>
                     <MdOutlineClear />
                 </Remove>

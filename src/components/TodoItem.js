@@ -14,6 +14,7 @@ const Check = styled.div`
     justify-content: center;
     margin-right: 20px;
     cursor: pointer;
+
     ${props =>
         props.done &&
         css`
@@ -36,10 +37,10 @@ const Remove = styled.div`
     color: #dee2e6;
     font-size: 24px;
     cursor: pointer;
+
     &:hover {
         color: ${props => props.color};
     }
-    display: none;
 `;
 const Form = styled.form`
     flex: 1;
@@ -63,7 +64,6 @@ const Title = styled.div`
 `;
 
 function TodoItem({ listId, title, color, id, text, done }) {
-    console.log(title)
     const dispatch = useDispatch();
     const onToggle = () => dispatch({ type: 'TODO_TOGGLE', listId, id, done })
     const onRemove = () => dispatch({ type: 'TODO_REMOVE', listId, id })

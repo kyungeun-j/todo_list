@@ -1,11 +1,9 @@
 import React, { useState, memo } from "react";
 import styled, { css } from "styled-components";
-import { MdAddCircle } from 'react-icons/md';
-import { useDispatch, useNextId, useListState } from "./Context";
-import Lists from "./Lists"
+import { BiPlusCircle } from 'react-icons/bi';
+import { useDispatch, useNextId } from "./Context";
 
 const Head = styled.div``;
-
 const Form = styled.form`
     display: flex;
     margin-bottom: 0.5em;
@@ -20,7 +18,6 @@ const Form = styled.form`
         `
     }
 `;
-
 const Color = styled.div`
     position: relative;
     border: none;
@@ -29,7 +26,6 @@ const Color = styled.div`
     height: 1.5em;
     border-radius: 1em;
 `;
-
 const ColorSelect = styled.div`
     position: absolute;
     top: 25px;
@@ -62,7 +58,6 @@ const ColorSelect = styled.div`
         top: 26px;
     }
 `;
-
 const ColorList = styled.div`
     width: 1.5em;
     height: 1.5em;
@@ -72,52 +67,46 @@ const Input = styled.input`
     flex: 1;
     outline: none;
     border: none;
+    padding-left: 0.5em;
     width: 82%;
 `;
-
 const Add = styled.div`
     display: flex;
     width: fit-content;
     font-size: 24px;
     color: var(--base-color);
-
+    cursor: pointer;
+    
     &:hover {
         border: 2px dashed var(--base-color);
-        margin-left: -2px;
-        margin-right: -2px;
+        margin: -2px;
         border-radius: 1em;
     }
 
     @media screen and (max-width: 800px) {
-        width: auto;
-        justify-content: center;
-        align-items: center;
         margin-bottom: 1em;
+        font-size: 2em;
 
         &:hover {
             border: none;
+            margin: 0 0 1em 0;
         }
     }
 `;
-
 const All = styled.div`
     padding: 1em 0;
-    
-    @media screen and (max-width: 800px) {
-        display: none;
-    }
 `;
 
-function ListHead({ ulOpen }) {
-
-    const [add, setAdd] = useState(false);
-    const onAdd = () => setAdd(!add);
-
+function ListHead() {
     const dispatch = useDispatch();
     const nextId = useNextId();
+    const id = nextId.current;
+
+    const [add, setAdd] = useState(false);
     const [value, setValue] = useState('');
     const [color, setColor] = useState('#FFF587');
-    const id = nextId.current;
+
+    const onAdd = () => setAdd(!add);
     const onChange = (e) => setValue(e.target.value);
     const onColor = (e) => setColor(e.target.style.backgroundColor);
     const onSubmit = (e) => {
@@ -134,13 +123,11 @@ function ListHead({ ulOpen }) {
         });
         dispatch({type: 'LIST_SELECT', id});
         setValue('');
-        setColor('#FFF587')
-        setAdd(false)
+        setColor('#FFF587');
+        setAdd(false);
         nextId.current += 1;
-    }
-
-    const onSelect = () => dispatch({ type: 'LIST_SELECT', id: 'all'})
-
+    };
+    const onSelect = () => dispatch({ type: 'LIST_SELECT', id: 'all'});
     const onColorSelect = (e) => {
         const colorPicker = document.getElementsByClassName('color-picker')[0];
 
@@ -150,14 +137,14 @@ function ListHead({ ulOpen }) {
             colorPicker.style.display = 'flex';
         }
         document.getElementsByClassName('color-picker')[0].classList.toggle('opend');
-    }
+    };
 
     return (
         <Head>
             <Add onClick={ onAdd } add={ add }>
-                <MdAddCircle className="addImg" />
+                <BiPlusCircle className="addImg" />
             </Add>
-            <All onClick={ onSelect } add={ add }>All Todos</All>
+            <All onClick={ onSelect }>All Todos</All>
             {(
                 add && 
                 <Form onSubmit={ onSubmit }>
@@ -176,7 +163,7 @@ function ListHead({ ulOpen }) {
                     </Color>
                     <Input
                         autoFocus
-                        placeholder="제목"
+                        placeholder="Title"
                         onChange={ onChange }
                         value={ value }
                     />

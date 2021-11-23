@@ -16,8 +16,7 @@ function TodoHead() {
     const list = lists.filter(list => list.select);
     const color = String(list.map(list => list.color))
 
-    console.log(color)
-    const allUnDone = lists.filter(list => !list.select).length !== 0 ?
+    const allUnDone = lists.filter(list => list.select).length !== 0 ?
         lists.map(list =>
         list.todos.filter(todo => !todo.done).length)
         .reduce((a, c) => a+c) : 0;
@@ -25,10 +24,10 @@ function TodoHead() {
     return(
         <Head color={ color }>
             <Title>
-                { list.length !== 0 ? list.map(ls => (ls.title)) : 'All Todos' }
+                { list.length > 1 ? 'All Todos' : list.map(ls => (ls.title))}
             </Title>
             <Count>
-                { list.length !== 0 ? list.map(ls => ls.todos.filter(todo => !todo.done).length) : allUnDone }
+                { list.length > 1 ? allUnDone : list.map(ls => ls.todos.filter(todo => !todo.done).length)}
             </Count>
         </Head>
     );

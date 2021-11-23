@@ -7,6 +7,7 @@ const Form = styled.form`
     padding: 1em 0;
 `;
 const Input = styled.input`
+    width: -webkit-fill-available;
     flex: 1;
     font-size: 1.25rem;
     outline: none;
@@ -16,7 +17,7 @@ const Input = styled.input`
 
 function TodoCreate() {
     const lists = useListState();
-    const list = lists.filter(list => list.select)
+    const list = lists.filter(list => list.select);
     
     const [value, setValue] = useState('');
     const dispatch = useDispatch();
@@ -37,10 +38,11 @@ function TodoCreate() {
         });
         setValue('');
         nextId.current += 1;
-    }
+    };
 
     return (
-        list.length !== 0 ?
+        list.length > 1 ?
+        <Fragment /> :
         <Form onSubmit={ onSubmit }>
             <Input 
                 autoFocus
@@ -48,8 +50,7 @@ function TodoCreate() {
                 onChange={ onChange }
                 value={ value }
             />
-        </Form> :
-        <Fragment />
+        </Form>
     );
 }
 

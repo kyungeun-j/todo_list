@@ -1,5 +1,6 @@
-import React, { useState } from "react";
-import styled from "styled-components";
+import React from "react";
+import styled, { css } from "styled-components";
+import { useListState } from "./Context";
 
 const Template = styled.div`
     width: 10em;
@@ -12,17 +13,27 @@ const Template = styled.div`
     flex-direction: column;
 
     @media screen and (max-width: 800px) {
-        width: auto;
+        display: initial;
+        width: -webkit-fill-available;
         height: -webkit-fill-available;
-        padding: 0.7em;
-        margin-right: 0.5em;
+        padding: 1em;
+        margin-right: 0;
+
+        ${props =>
+            props.open === true &&
+            css`
+                display: none;
+            `
+        }
     }
 `;
 
 function ListTemplate({ children }) {
+    const lists = useListState();
+    const open = lists.length !== 0 ? lists.map(list => list.select).filter(select => select)[0] : false;
 
     return (
-        <Template>
+        <Template open={ open }>
             { children }
         </Template>
     );

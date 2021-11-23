@@ -10,7 +10,7 @@ const List = styled.div`
 
 function TodoList() {
     const lists = useListState();
-    const all = lists.filter(list => list.select).length === 0
+    const all = lists.filter(list => list.select).length > 1;
     
     return(
         <List>

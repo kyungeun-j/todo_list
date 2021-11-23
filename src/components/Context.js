@@ -3,19 +3,14 @@ import React, { createContext, useContext, useReducer, useRef } from "react";
 const lists = [];
 
 function Reducer(state, action) {
-    console.log(state, action)
     switch (action.type) {
         // list
         case 'LIST_CREATE':
-            return state.concat(action.list)
+            return state.concat(action.list);
 
         case 'LIST_REMOVE':
             return state.filter(list => list.id !== action.id);
 
-        // case 'UPDATE':
-        //     return state.map(list => list.id !== action.id ?
-        //         { ...list, title: action.title } : list);
-        
         case 'LIST_SELECT':
             return state.map(list => list.id === action.id || action.id === 'all' ?
                     { ...list, select: true } : { ...list, select: false }

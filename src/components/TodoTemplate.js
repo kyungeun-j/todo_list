@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import styled, { css } from "styled-components";
 import { BiChevronLeftCircle } from 'react-icons/bi';
 import { useListState, useDispatch } from "./Context";
@@ -20,8 +20,7 @@ const Template = styled.div`
         cursor: pointer;
         
         ${props =>
-            props.open === true &&
-            css`
+            props.open === true && css`
                 display: initial;
             `
         }

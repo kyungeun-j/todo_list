@@ -14,12 +14,11 @@ const Count = styled.div``;
 function TodoHead() {
     const lists = useListState();    
     const list = lists.filter(list => list.select);
-    const color = String(list.map(list => list.color))
+    const color = String(list.map(list => list.color));
 
     const allUnDone = lists.filter(list => list.select).length !== 0 ?
-        lists.map(list =>
-        list.todos.filter(todo => !todo.done).length)
-        .reduce((a, c) => a+c) : 0;
+        lists.map(list => list.todos.filter(todo => !todo.done).length)
+            .reduce((a, c) => a+c) : 0;
 
     return(
         <Head color={ color }>

@@ -20,8 +20,7 @@ const Template = styled.div`
         margin-right: 0;
 
         ${props =>
-            props.open === true &&
-            css`
+            props.open === true && css`
                 display: none;
             `
         }

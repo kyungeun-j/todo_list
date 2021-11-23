@@ -36,9 +36,8 @@ const Item = styled.li`
         }
     }
 
-    ${(props) =>
-        props.select && props.selectCnt < 2 &&
-        css`
+    ${props =>
+        props.select && props.selectCnt < 2 && css`
             border: 2px dashed var(--base-color);
             padding: 0.2em;
             

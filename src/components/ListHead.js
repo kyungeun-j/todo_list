@@ -7,9 +7,7 @@ const Head = styled.div``;
 const Form = styled.form`
     display: flex;
     margin-bottom: 0.5em;
-    ${props =>
-        props.add &&
-        css`
+    ${props => props.add && css`
             display: initial;
         ` 
         ||
@@ -76,7 +74,7 @@ const Add = styled.div`
     font-size: 24px;
     color: var(--base-color);
     cursor: pointer;
-    
+
     &:hover {
         border: 2px dashed var(--base-color);
         margin: -2px;

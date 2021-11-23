@@ -5,12 +5,10 @@ import ListTemplate from './components/ListTemplate';
 import ListHead from './components/ListHead';
 import Lists from "./components/Lists"
 import TodoTemplate from './components/TodoTemplate';
-
 import styled, { createGlobalStyle } from 'styled-components';
 import TodoList from './components/TodoList';
 import TodoHead from './components/TodoHead';
 import TodoCreate from './components/TodoCreate';
-import { useState } from 'react';
 
 const GrobalStyle = createGlobalStyle`
   :root {
@@ -42,7 +40,6 @@ const Container = styled.div`
 `;
 
 function App() {
-
   return (
     // TodoProvider: 모든 곳에서 Todo Context를 사용할 수 있기위함
     <Provider>

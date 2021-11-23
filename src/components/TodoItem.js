@@ -16,8 +16,7 @@ const Check = styled.div`
     cursor: pointer;
 
     ${props =>
-        props.done &&
-        css`
+        props.done && css`
             border: 1px solid ${props => props.color};
             color: ${props => props.color};
         `

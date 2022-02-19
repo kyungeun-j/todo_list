@@ -1,5 +1,5 @@
 {
-  "homepage": "http://{gitID}.github.io/{react-project-name}",
+  "homepage": ".",
   "name": "todo_list",
   "version": "0.1.0",
   "private": true,

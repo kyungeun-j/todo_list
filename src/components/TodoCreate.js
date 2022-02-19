@@ -17,8 +17,11 @@ const Input = styled.input`
 
 function TodoCreate() {
     const lists = useListState();
+
+    console.log(lists)
     const list = lists.filter(list => list.select);
-    
+    console.log(list)
+    console.log(lists.map(list => list.readType))
     const [value, setValue] = useState('');
     const dispatch = useDispatch();
     const nextId = useNextTodoId();
@@ -41,7 +44,7 @@ function TodoCreate() {
     };
 
     return (
-        list.length > 1 ?
+        list.length < 1 ?
         <Fragment /> :
         <Form onSubmit={ onSubmit }>
             <Input 

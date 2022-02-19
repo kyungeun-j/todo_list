@@ -93,6 +93,7 @@ const Add = styled.div`
 `;
 const All = styled.div`
     padding: 1em 0;
+    cursor: pointer;
 `;
 
 function ListHead() {
